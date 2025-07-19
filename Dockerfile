@@ -9,11 +9,11 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libonig-dev \
     libzip-dev \
-    libldap2-dev \               # <--- aggiungi questo
+    libldap2-dev \
     zip \
     curl \
     mariadb-client \
-    && docker-php-ext-install pdo pdo_mysql zip gd ldap  # <--- aggiungi ldap qui
+    && docker-php-ext-install pdo pdo_mysql zip gd ldap
 
 # Install Composer
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
@@ -28,7 +28,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 # Copy all project files
 COPY . .
 
-# Install PHP dependencies
+# Install PHP dependencies via Composer
 RUN composer install --no-dev --no-interaction --prefer-dist
 
 # Set permissions
