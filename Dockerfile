@@ -27,6 +27,9 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 # Copy all project files
 COPY . .
 
+# Install PHP dependencies
+RUN composer install --no-dev --no-interaction --prefer-dist
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
