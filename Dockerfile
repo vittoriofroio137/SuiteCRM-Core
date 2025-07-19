@@ -9,10 +9,11 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libonig-dev \
     libzip-dev \
+    libldap2-dev \               # <--- aggiungi questo
     zip \
     curl \
     mariadb-client \
-    && docker-php-ext-install pdo pdo_mysql zip gd
+    && docker-php-ext-install pdo pdo_mysql zip gd ldap  # <--- aggiungi ldap qui
 
 # Install Composer
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
